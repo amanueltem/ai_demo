@@ -2,8 +2,7 @@ spring:
   application:
     name: ai_demo
   profiles:
-    active: ollama  # or "openai" to switch profiles
-
+    active: ollama   # default profile, can switch to 'hug'
 server:
   port: 9092
   servlet:

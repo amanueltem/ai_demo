@@ -1,14 +1,11 @@
 spring:
-  config:
-    activate:
-      on-profile: ollama
-ai:
-  ollama:
-    base-url: http://localhost:11434
-    chat:
-      options:
-        model: phi
-        temperature: 0.3
-    embedding:
-      options:
-        model: nomic-embed-text
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: phi
+          temperature: 0.3
+      embedding:
+        options:
+          model: nomic-embed-text
