@@ -1,13 +1,11 @@
 package com.aman.ai_demo.chat;
 
-import com.aman.ai_demo.config.FastApiVectorStoreAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chroma.vectorstore.ChromaVectorStore;
 import org.springframework.ai.content.Media;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaChatOptions;
@@ -23,26 +21,10 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ChatService {
     private final OllamaChatModel chatModel;
-    private final FastApiVectorStoreAdapter vectorStore;
+    private final ChatClient chatClient;
     public String getResponse(String prompt){
-        ChatResponse response = ChatClient.builder(chatModel)
-                .build().prompt()
-                .advisors(QuestionAnswerAdvisor.builder(vectorStore).build())
-                .user(prompt)
-                .call()
-                .chatResponse();
-        assert response != null;
-        return response.getResult().getOutput().getText();
-    }
-    public String getResponseContext(String prompt){
-        ChatResponse chatResponse=chatModel.call(
-                new Prompt(
-                        prompt,
-                        OllamaChatOptions.builder()
-                                .model(OllamaModel.PHI)
-                                .temperature(0.4)
-                                .build()
-                ));
+        ChatResponse chatResponse=chatClient.prompt(prompt).call().chatResponse();
+        assert chatResponse != null;
         return chatResponse.getResult().getOutput().getText();
     }
     public String analyzeImage(String prompt, MultipartFile file) throws IOException {

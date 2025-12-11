@@ -16,12 +16,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ChatController {
     private final ChatService service;
-    @PostMapping("/chat-context")
-    public ResponseEntity<String> chatContext(@RequestParam(value= "message",defaultValue="Tell me a joke.") String text) {
-        return ResponseEntity.ok(
-                service.getResponse(text)
-        );
-    }
     @PostMapping("/chat")
     public ResponseEntity<String> callPhi(@RequestParam(value= "message",defaultValue="Tell me a joke.") String text) {
         return ResponseEntity.ok(
