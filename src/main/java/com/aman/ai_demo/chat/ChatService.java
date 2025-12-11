@@ -14,8 +14,6 @@ import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +41,7 @@ public class ChatService {
                 new Prompt(
                         userMessage,
                         OllamaChatOptions.builder()
-                                .model(OllamaModel.PHI)
+                                .model(OllamaModel.PHI)// phi is not capable of parsing images please use another models
                                 .temperature(0.2)
                                 .build()
                 )

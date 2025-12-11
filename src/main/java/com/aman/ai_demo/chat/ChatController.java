@@ -26,7 +26,7 @@ public class ChatController {
     @PostMapping(value = "/vision", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Analyze an image with prompt")
     public ResponseEntity<String> analyzeImage(
-            @RequestPart("prompt") String prompt,
+            @RequestParam(value = "prompt",defaultValue = "Explain what do you see on this picture?") String prompt,
             @RequestPart("image") MultipartFile image) throws IOException {
         return ResponseEntity.ok(service.analyzeImage(prompt,image));
     }
