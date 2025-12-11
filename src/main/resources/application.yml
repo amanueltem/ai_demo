@@ -1,14 +1,8 @@
 spring:
   application:
     name: ai_demo
-
-  ai:
-    ollama:
-      base-url: http://localhost:11434
-      chat:
-        options:
-          model: phi
-          temperature: 0.3  # locally persisted by Spring AI
+  profiles:
+    active: ollama  # or "openai" to switch profiles
 
 server:
   port: 9092

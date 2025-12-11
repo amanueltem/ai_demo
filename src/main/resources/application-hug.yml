@@ -1,0 +1,8 @@
+spring:
+  ai:
+    huggingface:
+      api-key: ${HUG_API_KEY}   # your HF API key
+      chat:
+        base-url: https://api-inference.huggingface.co/models/gpt2
+        options:
+          temperature: 0.7

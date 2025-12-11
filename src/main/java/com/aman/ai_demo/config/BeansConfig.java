@@ -1,14 +1,25 @@
 package com.aman.ai_demo.config;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.huggingface.HuggingfaceChatModel;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class BeansConfig {
+    // Only active if "ollama" profile is active
     @Bean
-    public ChatClient anthropicChatClient(OllamaChatModel chatModel) {
+    @Profile("ollama")
+    public ChatClient ollamaChatClient(OllamaChatModel chatModel) {
+        return ChatClient.create(chatModel);
+    }
+
+    // Only active if "openai" profile is active
+    @Bean
+    @Profile("hug")
+    public ChatClient openAiChatClient(HuggingfaceChatModel chatModel){
         return ChatClient.create(chatModel);
     }
 }
