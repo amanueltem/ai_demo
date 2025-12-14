@@ -3,6 +3,7 @@ package com.aman.ai_demo.chat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.AdvisorParams;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,14 @@ public class ChatService {
                 .call()
                 .entity(new ParameterizedTypeReference<List<Person>>() {
                 });
+    }
+    public String templateMovies() {
+        return chatClient.prompt()
+                .user(u -> u
+                        .text("Tell me the names of 5 movies whose soundtrack was composed by {composer}")
+                        .param("composer", "John Williams"))
+                .call()
+                .content();
     }
     public String analyzeImage(String prompt, MultipartFile file) throws IOException {
         return "coming soon";

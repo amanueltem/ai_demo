@@ -48,6 +48,12 @@ public class ChatController {
                 service.nativeFootballers()
         );
     }
+    @GetMapping("/template-movies")
+    public ResponseEntity<String> templateMovies() {
+        return ResponseEntity.ok(
+                service.templateMovies()
+        );
+    }
     // Multimodal (image + prompt) endpoint
     @PostMapping(value = "/vision", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Analyze an image with prompt")
