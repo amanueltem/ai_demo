@@ -1,6 +1,7 @@
 package com.aman.ai_demo.chat;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.chat.client.AdvisorParams;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.core.ParameterizedTypeReference;
@@ -33,6 +34,14 @@ public class ChatService {
     }
     public List<Person> footballers(){
         return chatClient.prompt()
+                .user("Generate 5 famous football players.")
+                .call()
+                .entity(new ParameterizedTypeReference<List<Person>>() {
+                });
+    }
+    public List<Person> nativeFootballers(){
+        return chatClient.prompt()
+                .advisors(AdvisorParams.ENABLE_NATIVE_STRUCTURED_OUTPUT)
                 .user("Generate 5 famous football players.")
                 .call()
                 .entity(new ParameterizedTypeReference<List<Person>>() {

@@ -41,6 +41,13 @@ public class ChatController {
                 service.footballers()
         );
     }
+
+    @GetMapping("/native-famous-footballers")
+    public ResponseEntity<List<Person>> nativeFamousFootballers() {
+        return ResponseEntity.ok(
+                service.nativeFootballers()
+        );
+    }
     // Multimodal (image + prompt) endpoint
     @PostMapping(value = "/vision", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Analyze an image with prompt")
