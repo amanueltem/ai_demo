@@ -3,13 +3,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -21,6 +19,27 @@ public class ChatController {
         return ResponseEntity.ok(
                 service.getResponse(text)
                );
+    }
+    @PostMapping("/generation")
+    public ResponseEntity<String> generation(@RequestParam(value= "message",
+            defaultValue="Tell me a joke.") String text) {
+        return ResponseEntity.ok(
+                service.generation(text)
+        );
+    }
+
+    @GetMapping("/actor")
+    public ResponseEntity<ActorFilms> getActor() {
+        return ResponseEntity.ok(
+                service.actorFilms()
+        );
+    }
+
+    @GetMapping("/famous-footballers")
+    public ResponseEntity<List<Person>> knownFootballPlayers() {
+        return ResponseEntity.ok(
+                service.footballers()
+        );
     }
     // Multimodal (image + prompt) endpoint
     @PostMapping(value = "/vision", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
