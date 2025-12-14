@@ -4,9 +4,11 @@ spring:
       on-profile: ollama
   ai:
     model:
-      embedding: ollama  # This enables Ollama embedding
+      embedding: ollama
     ollama:
       base-url: http://localhost:11434
+      container:
+        enabled: false  # MUST BE HERE TOO!
       embedding:
         options:
           model: nomic-embed-text

@@ -1,4 +1,7 @@
 spring:
+  config:
+    activate:
+      on-profile: hug  # Add this line!
   ai:
     huggingface:
       api-key: ${HUG_API_KEY}

@@ -3,6 +3,16 @@ spring:
     name: ai_demo
   profiles:
     active: ollama
+  ai:
+    ollama:
+      container:
+        enabled: false  # MUST BE HERE!
+    vectorstore:
+      qdrant:
+        uri: https://704bf5f1-799c-41b3-8a46-67ef46378ae1.us-east4-0.gcp.cloud.qdrant.io:6333
+        api-key: ${QDRANT_API_KEY}
+        collection-name: documents
+        use-tls: true
 server:
   port: 9092
   servlet:
