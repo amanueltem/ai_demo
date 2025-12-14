@@ -2,6 +2,7 @@ package com.aman.ai_demo.config;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.huggingface.HuggingfaceChatModel;
 import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

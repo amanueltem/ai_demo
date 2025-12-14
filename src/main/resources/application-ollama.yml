@@ -1,11 +1,17 @@
 spring:
+  config:
+    activate:
+      on-profile: ollama
   ai:
+    model:
+      embedding: ollama  # This enables Ollama embedding
     ollama:
       base-url: http://localhost:11434
+      embedding:
+        options:
+          model: nomic-embed-text
+          temperature: 0.3
       chat:
         options:
           model: phi
           temperature: 0.3
-      embedding:
-        options:
-          model: nomic-embed-text
