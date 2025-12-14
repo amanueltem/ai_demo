@@ -6,13 +6,15 @@ spring:
   ai:
     ollama:
       container:
-        enabled: false  # MUST BE HERE!
+        enabled: false
     vectorstore:
       qdrant:
-        uri: https://704bf5f1-799c-41b3-8a46-67ef46378ae1.us-east4-0.gcp.cloud.qdrant.io:6333
+        host: 704bf5f1-799c-41b3-8a46-67ef46378ae1.us-east4-0.gcp.cloud.qdrant.io  # NOT uri!
+        port: 6334  # GRPC port, NOT 6333!
         api-key: ${QDRANT_API_KEY}
         collection-name: documents
         use-tls: true
+        initialize-schema: false # Add this!
 server:
   port: 9092
   servlet:
