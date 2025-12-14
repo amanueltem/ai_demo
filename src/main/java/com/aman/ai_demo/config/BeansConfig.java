@@ -1,6 +1,5 @@
 package com.aman.ai_demo.config;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.huggingface.HuggingfaceChatModel;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +19,8 @@ public class BeansConfig {
     @Bean
     @Profile("hug")
     public ChatClient huggingChatClient(HuggingfaceChatModel chatModel) {
+
         return ChatClient.create(chatModel);
     }
+
 }

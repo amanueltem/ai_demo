@@ -3,6 +3,16 @@ spring:
     name: ai_demo
   profiles:
     active: ollama   # default profile, can switch to 'hug'
+# ai configuration
+  ai:
+    qdrant:
+      host: ${QDRANT_END_POINT}
+      port: 6334
+      api-key: ${QDRANT_API_KEY}
+      collection-name: my_collection
+      use-tls: true
+      initialize-schema: true
+
 server:
   port: 9092
   servlet:
