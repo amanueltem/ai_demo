@@ -1,5 +1,6 @@
 package com.aman.ai_demo.config;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
@@ -9,8 +10,6 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Configuration
@@ -22,7 +21,7 @@ public class DataPopulateConfig {
     private Resource fileResource;
 
     private final VectorStore vectorStore;
-    @PostConstruct
+    //@PostConstruct
     public void loadDataInVectorStore() {
 
         TextReader textReader = new TextReader(fileResource);

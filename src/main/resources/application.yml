@@ -1,21 +1,53 @@
 spring:
   application:
     name: ai_demo
-  profiles:
-    active: ollama
   ai:
+    model:
+      embedding: ollama
+      chat: ollama
     ollama:
+      base-url: http://localhost:11434
       container:
         enabled: false
+      embedding:
+        options:
+          model: nomic-embed-text
+          temperature: 0.3
+      chat:
+        options:
+          model: phi
+          temperature: 0.3
     vectorstore:
       qdrant:
-        host: 704bf5f1-799c-41b3-8a46-67ef46378ae1.us-east4-0.gcp.cloud.qdrant.io  # NOT uri!
-        port: 6334  # GRPC port, NOT 6333!
+        host: 704bf5f1-799c-41b3-8a46-67ef46378ae1.us-east4-0.gcp.cloud.qdrant.io
+        port: 6334
         api-key: ${QDRANT_API_KEY}
         collection-name: documents
         use-tls: true
-        initialize-schema: false # Add this!
+        initialize-schema: false
+
 server:
   port: 9092
+  # REQUIRED: Tells Spring to trust the HTTPS and Port headers from Apache
+  forward-headers-strategy: FRAMEWORK
   servlet:
+    # Changed from /api to /app1 to match your Apache ProxyPass /app1
     context-path: /api
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+    # We still tell Swagger where to look relative to the browser URL
+    config-url: /app1/api/v3/api-docs/swagger-config
+    url: /app1/api/v3/api-docs
+
+# Disable data population for now
+data:
+  populate:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.ai: DEBUG

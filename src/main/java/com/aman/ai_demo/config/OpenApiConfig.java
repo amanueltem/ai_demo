@@ -11,45 +11,49 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
-    info = @Info(
-        contact = @Contact(
-            name = "Amanuel",
-            email = "amanueltemesgen62@gmail.com",
-            url="https://aman"
+        info = @Info(
+                contact = @Contact(
+                        name = "Amanuel",
+                        email = "amanueltemesgen62@gmail.com",
+                        url="https://aman"
+                ),
+                description = " open api documentation for spring security",
+                title = "open api specification- Aman",
+                version = "1.0",
+                license = @License(
+                        name = "Licence name",
+                        url = "https://nothing-todo.com"
+                ) ,
+                termsOfService = " Terms of service"
         ),
-        description = " open api documentation for spring security",
-        title = "open api specification- Aman",
-        version = "1.0",
-        license = @License(
-            name = "Licence name",
-            url = "https://nothing-todo.com"
-        ) ,
-        termsOfService = " Terms of service" 
-    ),
-    servers = {
-        @Server(
-            description = "Local ENV",
-            url = "http://localhost:9092/api"
-        ),
-        @Server(
-            description = "TEST ENV",
-            url = "http://10.48.19.33:8088/api"
-        )
-    },
-    security = {
-        @SecurityRequirement(
-            name = "bearerAuth"
-        )
-    }
+        servers = {
+                @Server(
+                        description = "Local ENV",
+                        url = "http://localhost:9092/api"
+                ),
+                @Server(
+                        description = "TEST ENV",
+                        url = "http://10.48.19.33:8088/api"
+                ),
+                @Server(
+                        description = "PROD ENV",
+                        url = "https://localhost/app1/api"
+                )
+        },
+        security = {
+                @SecurityRequirement(
+                        name = "bearerAuth"
+                )
+        }
 )
 @SecurityScheme(
-    name = "bearerAuth",
-    description = "JWT auth description",
-    scheme = "bearer",
-    type = SecuritySchemeType.HTTP,
-    bearerFormat = "JWT",
-    in = SecuritySchemeIn.HEADER
+        name = "bearerAuth",
+        description = "JWT auth description",
+        scheme = "bearer",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
-    
+
 }

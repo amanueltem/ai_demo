@@ -47,7 +47,7 @@ public class RagService {
 
     public String getChat(String prompt) {
         // Ensure data is loaded
-
+        loadDataInVectorStore();
         // Retrieve top 5 relevant documents
         List<Document> contextDocs = vectorStore.similaritySearch(
                 SearchRequest.builder()

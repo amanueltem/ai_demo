@@ -1,0 +1,13 @@
+# src/main/resources/application-test.yml
+
+spring:
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+    embedding:
+      ollama:
+        base-url: http://localhost:11434
+
+data:
+  populate:
+    enabled: false
