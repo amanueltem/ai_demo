@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "amanueltemesgen62@gmail.com",
                         url="https://aman"
                 ),
-                description = " open api documentation for spring security",
+                description = " open api documentation for spring Ai Demo",
                 title = "open api specification- Aman",
                 version = "1.0",
                 license = @License(
@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         servers = {
                 @Server(
                         description = "Local ENV",
-                        url = "http://localhost:9092/api"
+                        url = "http://localhost:8080"
                 ),
                 @Server(
                         description = "TEST ENV",

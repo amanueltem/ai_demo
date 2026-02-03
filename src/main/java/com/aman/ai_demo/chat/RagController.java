@@ -15,7 +15,7 @@ public class RagController {
     @PostMapping("/chat")
     public ResponseEntity<String> chatRag(@RequestParam(value= "message",defaultValue="Who is Amanuel Temesgen") String text) {
         return ResponseEntity.ok(
-                service.getChat(text)
-        );
+               // service.getChat(text)
+        ).build();
     }
 }

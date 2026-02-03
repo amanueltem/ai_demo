@@ -2,14 +2,6 @@ package com.aman.ai_demo.chat;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.document.Document;
-import org.springframework.ai.reader.TextReader;
-import org.springframework.ai.transformer.splitter.TokenTextSplitter;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +11,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class RagService {
-
+/*
     @Value("classpath:/data/sample.txt")
     private Resource fileResource;
 
@@ -28,7 +20,7 @@ public class RagService {
 
     /**
      * Load and embed documents into the vector store
-     */
+
     public void loadDataInVectorStore() {
 
         TextReader textReader = new TextReader(fileResource);
@@ -67,5 +59,5 @@ public class RagService {
                                 "\n\nQuestion: " + prompt
                 ).call()
                 .content();
-    }
+    }*/
 }
