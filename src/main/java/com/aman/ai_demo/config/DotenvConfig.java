@@ -1,18 +1,16 @@
 package com.aman.ai_demo.config;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Objects;
 
-//@Configuration
+@Configuration
 public class DotenvConfig {
 
-  /*  static {
+   static {
         Dotenv dotenv = Dotenv.load();
-        System.setProperty("OPENAI_API_KEY", Objects.requireNonNull(dotenv.get("OPENAI_API_KEY")));
-        System.setProperty("HUG_API_KEY", Objects.requireNonNull(dotenv.get("HUG_API_KEY")));
-        System.setProperty("QDRANT_API_KEY",Objects.requireNonNull(dotenv.get("QDRANT_API_KEY")));
-        System.setProperty("QDRANT_END_POINT",Objects.requireNonNull(dotenv.get("QDRANT_END_POINT")));
-    }*/
+        System.setProperty("GROQ_API_KEY", Objects.requireNonNull(dotenv.get("GROQ_API_KEY")));
+    }
 }
 
