@@ -1,15 +1,38 @@
 spring:
   application:
     name: ai_demo
+  main:
+    allow-bean-definition-overriding: true
+
   ai:
+    # Use the SDK prefix for EVERYTHING to avoid defaults
     openai-sdk:
-      # Get your free key at https://console.groq.com/
+      # Chat (Groq)
       api-key: ${GROQ_API_KEY}
       base-url: https://api.groq.com/openai/v1
       chat:
         options:
-          # Llama 3.3 70B is powerful and free on Groq
           model: llama-3.3-70b-versatile
-          temperature: 0.7
-          # Adding a max-tokens limit is good practice for free tiers
-          max-tokens: 2048
+      
+      # Embedding (Voyage)
+      embedding:
+        api-key: ${VOYAGE_API_KEY}
+        base-url: https://api.voyageai.com/v1
+        options:
+          model: voyage-3
+
+    vectorstore:
+      qdrant:
+        host: ${QDRANT_HOST}
+        port: 6334
+        api-key: ${QDRANT_API_KEY}
+        use-tls: true
+        collection-name: ai_knowledge_base
+        initialize-schema: false
+
+# Keep these disabled to prevent the prompt_tokens crash
+management:
+  observations:
+    enable:
+      spring.ai.embedding: false
+      spring.ai.vectorstore: false

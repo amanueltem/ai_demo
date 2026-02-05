@@ -8,10 +8,15 @@ import java.util.Objects;
 @Configuration
 public class DotenvConfig {
 
-   static {
-        Dotenv dotenv = Dotenv.load();
-        System.setProperty("GROQ_API_KEY", Objects.requireNonNull(dotenv.get("GROQ_API_KEY")));
-        System.setProperty("VOYAGE_API_KEY",Objects.requireNonNull(dotenv.get("VOYAGE_API_KEY")));
+    static {
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        
+        // Loop through all entries and only set if the value is NOT null
+        dotenv.entries().forEach(entry -> {
+            if (entry.getValue() != null) {
+                System.setProperty(entry.getKey(), entry.getValue());
+            }
+        });
     }
 }
 
