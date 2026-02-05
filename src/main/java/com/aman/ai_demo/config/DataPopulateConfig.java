@@ -4,18 +4,17 @@ package com.aman.ai_demo.config;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
+import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Configuration
 @RequiredArgsConstructor
@@ -29,48 +28,34 @@ public class DataPopulateConfig {
 
     @PostConstruct
     public void init() {
-        log.info("Starting data ingestion with rate-limit protection...");
-
-        try {
             TextReader textReader = new TextReader(fileResource);
             List<Document> documents = textReader.get();
-
             TokenTextSplitter splitter = new TokenTextSplitter();
             List<Document> splitDocs = splitter.apply(documents);
 
-            // 1. Generate Stable IDs (UUID format for Qdrant)
-            List<Document> dedupedDocs = splitDocs.stream()
-                    .map(doc -> {
-                        String stableUuidId = UUID.nameUUIDFromBytes(
-                                doc.getText().getBytes(StandardCharsets.UTF_8)
-                        ).toString();
-                        return new Document(stableUuidId, doc.getText(), doc.getMetadata());
-                    })
-                    .toList();
+            if (splitDocs.isEmpty()) return;
 
-            // 2. Batch and Throttle (Fix for 429 Error)
-            int batchSize = 2; // Small batches for the free tier
-            for (int i = 0; i < dedupedDocs.size(); i += batchSize) {
-                int end = Math.min(i + batchSize, dedupedDocs.size());
-                List<Document> batch = dedupedDocs.subList(i, end);
+            log.info("Checking if data already exists in Qdrant...");
 
-                log.info("Sending batch {} to {}/{}", i, end, dedupedDocs.size());
-                
-                vectorStore.add(batch);
+            // Check the first chunk of text
+            String firstChunkText = splitDocs.get(0).getText();
+            
+            // Search for the exact content of the first chunk
+            List<Document> existing = vectorStore.similaritySearch(
+                    SearchRequest.builder()
+                            .query(firstChunkText)
+                            .topK(1)
+                            .similarityThreshold(0.95) // If it's 95%+ similar, it's already there
+                            .build()
+            );
 
-                // Pause for 2 seconds between requests to stay within Free Tier limits
-                if (end < dedupedDocs.size()) {
-                    Thread.sleep(2000); 
-                }
+            if (!existing.isEmpty()) {
+                log.info("Match found in Qdrant. Skipping ingestion to save Mistral credits.");
+                return;
             }
 
-            log.info("Sync complete! Data is now searchable in Qdrant.");
+            log.info("No matching data found. Starting ingestion...");
 
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Ingestion interrupted", e);
-        } catch (Exception e) {
-            log.error("Failed to populate data. Check if your Mistral usage has been exceeded.", e);
-        }
     }
+  
 }

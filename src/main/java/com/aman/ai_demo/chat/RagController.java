@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class RagController {
+    
     private final RagService service;
+
     @PostMapping("/chat")
-    public ResponseEntity<String> chatRag(@RequestParam(value= "message",defaultValue="Who is Amanuel Temesgen") String text) {
-        return ResponseEntity.ok(
-               // service.getChat(text)
-        ).build();
+    public ResponseEntity<String> chatRag(@RequestParam(value= "message", defaultValue="Who is Amanuel Temesgen") String text) {
+        // 1. Call the service
+        String response = service.getChatResponse(text);
+        
+        // 2. Return the string directly in the body
+        return ResponseEntity.ok(response); 
     }
 }
