@@ -5,21 +5,16 @@ spring:
     allow-bean-definition-overriding: true
 
   ai:
-    # Use the SDK prefix for EVERYTHING to avoid defaults
-    openai-sdk:
-      # Chat (Groq)
-      api-key: ${GROQ_API_KEY}
-      base-url: https://api.groq.com/openai/v1
+    mistralai:
+      api-key: ${MISTRAL_API_KEY}
+      # This handles your Chat Model (Llama-style reasoning)
       chat:
         options:
-          model: llama-3.3-70b-versatile
-      
-      # Embedding (Voyage)
+          model: mistral-small-latest
+      # This handles your Vector Generation
       embedding:
-        api-key: ${VOYAGE_API_KEY}
-        base-url: https://api.voyageai.com/v1
         options:
-          model: voyage-3
+          model: mistral-embed
 
     vectorstore:
       qdrant:
@@ -29,8 +24,7 @@ spring:
         use-tls: true
         collection-name: ai_knowledge_base
         initialize-schema: false
-
-# Keep these disabled to prevent the prompt_tokens crash
+# Still good practice to keep these off during development to avoid metadata crashes
 management:
   observations:
     enable:
