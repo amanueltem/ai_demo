@@ -11,6 +11,7 @@ public class DotenvConfig {
    static {
         Dotenv dotenv = Dotenv.load();
         System.setProperty("GROQ_API_KEY", Objects.requireNonNull(dotenv.get("GROQ_API_KEY")));
+        System.setProperty("VOYAGE_API_KEY",Objects.requireNonNull(dotenv.get("VOYAGE_API_KEY")));
     }
 }
 

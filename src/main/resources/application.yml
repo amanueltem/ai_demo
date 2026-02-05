@@ -1,11 +1,6 @@
 spring:
   application:
     name: ai_demo
-  # Enable Virtual Threads for better memory efficiency on your 8GB RAM desktop
-  threads:
-    virtual:
-      enabled: true
-
   ai:
     openai-sdk:
       # Get your free key at https://console.groq.com/
@@ -16,5 +11,5 @@ spring:
           # Llama 3.3 70B is powerful and free on Groq
           model: llama-3.3-70b-versatile
           temperature: 0.7
-      # If you want to use GitHub Models instead, change base-url to:
-      # base-url: https://models.inference.ai.azure.com
+          # Adding a max-tokens limit is good practice for free tiers
+          max-tokens: 2048

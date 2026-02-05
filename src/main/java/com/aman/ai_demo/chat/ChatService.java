@@ -16,10 +16,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChatService {
     private final ChatClient chatClient;
-    public String getResponse(String prompt){
-        ChatResponse chatResponse=chatClient.prompt(prompt).call().chatResponse();
-        assert chatResponse != null;
-        return chatResponse.getResult().getOutput().getText();
+    public String getResponse(String prompt) {
+        // .content() is a shortcut to get the string output directly
+        return chatClient.prompt(prompt)
+                .call()
+                .content();
     }
     public String generation(String userInput){
         return chatClient.prompt()
